@@ -18,8 +18,8 @@
         </activity>
 
         <provider
-            android:authorities="com.mac.training.movieapp.MovieProvider"
-            android:name="MovieProvider"/>
+            android:authorities="com.mac.training.movieapp"
+            android:name=".MovieProvider"/>
     </application>
 
 </manifest>

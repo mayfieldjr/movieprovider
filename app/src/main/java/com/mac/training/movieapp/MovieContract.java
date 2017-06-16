@@ -9,7 +9,7 @@ public class MovieContract {
     /**
      * Is the name for the entire ContentProvider
      */
-    public static final String CONTENT_AUTHORITY = "com.mac.training.moviedatabase";
+    public static final String CONTENT_AUTHORITY = "com.mac.training.movieapp";
 
     /**
      *
