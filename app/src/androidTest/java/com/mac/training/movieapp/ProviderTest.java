@@ -121,11 +121,21 @@ public class ProviderTest extends AndroidTestCase {
     /// testInsertReadMovie
     public void testInsertReadMovie(){
         ContentValues genreContentValues = getGenreContentValues();
-        Uri genreInsertUri = mContext.getContentResolver().insert(MovieContract.GenreEntry.CONTENT_URI, genreContentValues);
+        Uri genreInsertUri = mContext
+                .getContentResolver()
+                .insert(
+                        MovieContract.GenreEntry.CONTENT_URI,
+                        genreContentValues
+                );
         long genreRowId = ContentUris.parseId(genreInsertUri);
 
         ContentValues movieContentValues = getMovieContentValues(genreRowId);
-        Uri movieInsertUri = mContext.getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, movieContentValues);
+        Uri movieInsertUri = mContext
+                .getContentResolver()
+                .insert(
+                        MovieContract.MovieEntry.CONTENT_URI,
+                        movieContentValues
+                );
         long movieRowId = ContentUris.parseId(movieInsertUri);
 
         assertTrue(movieRowId > 0);

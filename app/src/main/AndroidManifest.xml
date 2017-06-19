@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mac.training.movieapp">
+    
+    <permission android:name="com.mac.training.movieapp.READ" android:protectionLevel="normal" />
+    <permission android:name="com.mac.training.movieapp.WRITE" android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -19,7 +22,11 @@
 
         <provider
             android:authorities="com.mac.training.movieapp"
-            android:name=".MovieProvider"/>
+            android:name=".MovieProvider"
+            android:exported="true"
+            android:multiprocess="true"
+            android:readPermission="com.mac.training.movieapp.READ"
+            android:writePermission="com.mac.training.movieapp.WRITE" />
     </application>
 
 </manifest>
