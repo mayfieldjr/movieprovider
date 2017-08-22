@@ -85,6 +85,9 @@ public class ProviderTest extends AndroidTestCase {
 
     }
 
+
+
+
     public void testInsertReadGenre() {
         ContentValues genreContentValues = getGenreContentValues();
         Uri genreInsertUri = mContext
@@ -265,5 +268,42 @@ public class ProviderTest extends AndroidTestCase {
         }
         valueCursor.close();
     }
+
+    private ContentValues getMovieContentValues(Long genreID) {
+        ContentValues values = new ContentValues();
+        values.put(MovieContract.MovieEntry.COLUMN_NAME, TEST_MOVIE_NAME);
+        values.put(MovieContract.MovieEntry.COLUMN_RELEASE_DATE, TEST_MOVIE_RELEASE_DATE);
+        values.put(MovieContract.MovieEntry.COLUMN_GENRE, genreID);
+        return values;
+    }
+
+    public void setTestUpdateMovie() {
+        ContentValues genreValues = getGenreContentValues();
+        Uri genreInsertUri = mContext.getContentResolver().insert(MovieContract.GenreEntry.CONTENT_URI,genreValues);
+        long genreId = ContentUris.parseId(genreInsertUri);
+
+        ContentValues movieValues = getMovieContentValues(genreId);
+        Uri movieInsertUri = mContext.getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, movieValues);
+
+        long movieId = ContentUris.parseId(movieInsertUri);
+
+        ContentValues updateMovie = new ContentValues(movieValues);
+        updateMovie.put(MovieContract.MovieEntry._ID, movieId);
+        updateMovie.put(MovieContract.MovieEntry.COLUMN_NAME,TEST_UPDATE_MOVIE_NAME);
+
+        mContext.getContentResolver().update(MovieContract.MovieEntry.CONTENT_URI,
+                updateMovie, MovieContract.MovieEntry._ID + "=?",
+                new String[]{String.valueOf(movieId)});
+
+        Cursor movieCursor = mContext.getContentResolver().query(MovieContract.MovieEntry.buildMovieUri(movieId),
+                null,
+                null,
+                null,
+                null);
+        validateCursor(movieCursor,updateMovie);
+        movieCursor.close();
+
+    }
+
 
 }
